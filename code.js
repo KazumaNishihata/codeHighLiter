@@ -1,3 +1,4 @@
+//https://github.com/to-r/codeHighLiter
 $.fn.codeHighLiter = function(){
 	return this.each(function(){
 		var $this = $(this);
