@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>codeHighLiter</title>
+<style>
+pre {
+	display: block;
+	margin: 20px 10px;
+	border: 1px solid #666;
+	padding: 10px;
+	background: #EFEFEF;
+	line-height: 1.7;
+	overflow: auto;
+	border-radius: 2px;
+	white-space: pre;
+	tab-size:4;
+	color:#333;
+	
+}
+.codeHighLiterElement{
+	color:#07a;
+}
+.codeHighLiterAttribulte{
+	color:#DD4A68;
+}
+.codeHighLiterString{
+	color:#905;
+}
+.codeHighLiterComment,
+.codeHighLiterComment *{
+	color:#690;
+}
+.codeHighLiterKeyword{
+	color:#DD4A68;
+}
+.codeHighLiterSymbol{
+	color:#07a;
+}
+pre strong{
+	font-weight: normal;
+	background: rgba(255,255,0,.5);
+}
+</style>
+</head>
+<body class="aa">
+<h3>HTML</h3>
+<pre><code data-code="HTML">&lt;!-- コメント --&gt;
+&lt;!-- 
+	<strong>コメント</strong>
+	コメント
+--&gt;
+&lt;div&gt;
+	&lt;a href="hoge.html" class="hoge fuga"&gt;ほげほげ&lt;/a&gt;
+	<strong>&lt;a href="hoge.html"&gt;ほげほげ&lt;/a&gt;</strong>
+&lt;/div&gt;</code></pre>
+<h3>CSS</h3>
+<pre><code data-code="CSS">/* コメント */
+/* コメント
+コメント */
+.target{
+	color:red;
+	font-size:10px;
+	background:url("/hoge.png");
+	/*font-size:10px;*/
+}
+.target{
+	<strong>color:red;</strong>
+	font-size:10px;
+	background:url("/hoge.png");/*IE10*/
+	/*font-size:10px;
+	font-size:10px;*/
+}</code></pre>
+<h3>JavaScript</h3>
+<pre><code data-code="JavaScript">/* コメント */
+/* コ
+メ
+ン
+ト */
+//コメント
+var fuga = "hoge";
+var arr = [1,2,3,4];
+  
+arr.reduce(function(prev,elem){
+	<strong>console.log(prev,elem);</strong>
+	return prev+elem;
+});
+</code></pre>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="code.js"></script>
+</body>
+</html>
