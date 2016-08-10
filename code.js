@@ -12,26 +12,29 @@ $.fn.codeHighLiter = function(){
 				this.setHightLight();
 			},
 			setHightLight : function(){
-				console.log(this.lang,"setHightLight");
+				var after;
 				switch(this.lang){
 					case "HTML" :
-						this.htmlHightLight();
+						after = this.htmlHightLight(this.target);
 						break;
 					case "CSS" :
-						this.cssHightLight();
+						after = this.cssHightLight(this.target);
 						break;
 					case "JavaScript" :
-						this.jsHightLight();
+						after = this.jsHightLight(this.target);
+						break;
+					case "command" :
+						after = this.commandHightLight(this.target);
 						break;
 				}
+				return after;
 			},
-			htmlHightLight : function(){
-				console.log(this.lang,"htmlHightLight");
-				var target = this.target.replace(/&lt;[\s\S]+?&gt;/g,this.htmlHightLightReplace);
-				this.putHightLight(target);
+			htmlHightLight : function(before){
+				var after = before.replace(/(&lt;style[\s\S]*?&gt;)[\s\S]+?(&lt;\/style&gt;)/g,"$1css$2");
+				after = after.replace(/&lt;[\s\S]+?&gt;/g,this.htmlHightLightReplace);
+				return after;
 			},
 			htmlHightLightReplace : function(str){
-				console.log(str);
 				if(str[4]==="!"){
 					//コメント
 					return "<span class='codeHighLiterComment'>"+str+"</span>";
@@ -43,22 +46,19 @@ $.fn.codeHighLiter = function(){
 					return str;
 				}
 			},
-			cssHightLight : function(){
-				var target = this.target;
+			cssHightLight : function(before){
 				//セレクタ
-				target = target.replace(/(.+?)({[\s\S]+?})/g,"<span class='codeHighLiterElement'>$1</span>$2");
+				var after = before.replace(/(.+?)({[\s\S]+?})/g,"<span class='codeHighLiterElement'>$1</span>$2");
 				//プロパティ: バリュー
-				target = target.replace(/(.+?):(.+)/g,function($0,$1,$2){
+				after = after.replace(/(.+?):(.+)/g,function($0,$1,$2){
 						return "<span class='codeHighLiterAttribulte'>"+$1+"</span>:<span class='codeHighLiterString'>"+$2+"</span>";
 				});
 				//コメント
-				target = target.replace(/(\/\*[\s\S]+?\*\/)/g,"<b class='codeHighLiterComment'>$1</b>");
-				this.putHightLight(target);
+				after = after.replace(/(\/\*[\s\S]+?\*\/)/g,"<b class='codeHighLiterComment'>$1</b>");
+
 			},
-			jsHightLight : function(){
-				console.log(this.lang,"jsHightLight");
-				var target = this.target,
-					keywords = [
+			jsHightLight : function(before){
+				var keywords = [
 						"break",
 						"case",
 						"catch",
@@ -90,7 +90,8 @@ $.fn.codeHighLiter = function(){
 						"export",
 						"extends",
 						"import",
-						"super"],
+						"super"
+					],
 					symbol = [
 						"{",
 						"}",
@@ -106,21 +107,25 @@ $.fn.codeHighLiter = function(){
 
 
 				//文字列
-				target = target.replace(/(["'].+?["'])/g,"<span class='codeHighLiterString'>$1</span>");
+				var after = before.replace(/(["'].+?["'])/g,"<span class='codeHighLiterString'>$1</span>");
 				//コメント
-				target = target.replace(/(\/\*[\s\S]+?\*\/)/g,"<span class='codeHighLiterComment'>$1</span>");
-				target = target.replace(/(\/\/.+)/g,"<span class='codeHighLiterComment'>$1</span>");
+				after = after.replace(/(\/\*[\s\S]+?\*\/)/g,"<span class='codeHighLiterComment'>$1</span>");
+				after = after.replace(/(\/\/.+)/g,"<span class='codeHighLiterComment'>$1</span>");
 				//キーワード
 				for(i=0 ; i<keywords.length ; i++){
-					target = target.replace(new RegExp("\\b"+keywords[i]+"\\b","g"),"<span class='codeHighLiterKeyword'>$&</span>");
+					after = after.replace(new RegExp("\\b"+keywords[i]+"\\b","g"),"<span class='codeHighLiterKeyword'>$&</span>");
 				}
 				//記号
 				for(i=0 ; i<symbol.length ; i++){
-					target = target.replace(symbol[i],"<span class='codeHighLiterSymbol'>$&</span>");
+					after = after.replace(symbol[i],"<span class='codeHighLiterSymbol'>$&</span>");
 				}
-				
 
-				this.putHightLight(target);
+
+				return after;
+			},
+			commandHightLight: function(before){
+				var after = before.replace(/(#.+)/g,"<span class='codeHighLiterComment'>$1</span>");
+				return after;
 			},
 			putHightLight : function(str){
 				$this.html(str);

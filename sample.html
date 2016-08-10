@@ -16,7 +16,7 @@ pre {
 	white-space: pre;
 	tab-size:4;
 	color:#333;
-	
+
 }
 .codeHighLiterElement{
 	color:#07a;
@@ -46,10 +46,36 @@ pre strong{
 <body class="aa">
 <h3>HTML</h3>
 <pre><code data-code="HTML">&lt;!-- コメント --&gt;
-&lt;!-- 
+&lt;!--
 	<strong>コメント</strong>
 	コメント
 --&gt;
+&lt;style type="text/css"&gt;
+.target{
+	color:red;
+	font-size:10px;
+	background:url("/hoge.png");
+	/*font-size:10px;*/
+}
+&lt;/style&gt;
+&lt;style&gt;
+/* コメント */
+/* コメント
+コメント */
+.target{
+	color:red;
+	font-size:10px;
+	background:url("/hoge.png");
+	/*font-size:10px;*/
+}
+.target{
+	<strong>color:red;</strong>
+	font-size:10px;
+	background:url("/hoge.png");/*IE10*/
+	/*font-size:10px;
+	font-size:10px;*/
+}
+&lt;/style&gt;
 &lt;div&gt;
 	&lt;a href="hoge.html" class="hoge fuga"&gt;ほげほげ&lt;/a&gt;
 	<strong>&lt;a href="hoge.html"&gt;ほげほげ&lt;/a&gt;</strong>
@@ -80,12 +106,15 @@ pre strong{
 //コメント
 var fuga = "hoge";
 var arr = [1,2,3,4];
-  
+
 arr.reduce(function(prev,elem){
 	<strong>console.log(prev,elem);</strong>
 	return prev+elem;
 });
 </code></pre>
+<h3>Command</h3>
+<pre><code data-code="command">#コメント
+npm adduser</code></pre>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="code.js"></script>
 </body>
