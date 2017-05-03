@@ -27,7 +27,7 @@ $.fn.codeHighLiter = function(){
 						after = this.commandHightLight(this.target);
 						break;
 				}
-				return after;
+				this.putHightLight(after);
 			},
 			htmlHightLight : function(before){
 				var after = before.replace(/(&lt;style[\s\S]*?&gt;)[\s\S]+?(&lt;\/style&gt;)/g,"$1css$2");
@@ -55,7 +55,7 @@ $.fn.codeHighLiter = function(){
 				});
 				//コメント
 				after = after.replace(/(\/\*[\s\S]+?\*\/)/g,"<b class='codeHighLiterComment'>$1</b>");
-
+				return after;
 			},
 			jsHightLight : function(before){
 				var keywords = [
@@ -100,7 +100,7 @@ $.fn.codeHighLiter = function(){
 						"[",
 						"]",
 						"+",
-						";",
+						// ";",
 						"."
 					],
 					i;
